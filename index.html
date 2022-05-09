@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="main">
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">WELCOME TO FACEBOOK</h3>
+            <p class="desc">Connect with friends and the world around you</p>
+
+            <div class="space"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                <input id="fullname" name="fullname" type="text" placeholder="ex: Ngo Duy Khanh" class="form-input">
+                <div class="form-icon-exclamation">!</div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Giới tính</label>
+                <div class="form-radio">
+                    <div class="radio-input">
+                        <input name="gender" type="radio" value="male">
+                        <label for="">Nam</label>
+                    </div>
+                    <div class="radio-input">
+                        <input name="gender" type="radio" value="female">
+                        <label for="">Nữ</label>
+                    </div>
+                    <div class="radio-input">
+                        <input name="gender" type="radio" value="other">
+                        <label for="">Khác</label>
+                    </div>
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="ex: email@domain.com" class="form-input">
+                <div class="form-icon-exclamation">!</div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="form-label">Số điện thoại</label>
+                <input id="phone" name="phone" type="text" placeholder="ex: 0123456789" class="form-input">
+                <div class="form-icon-exclamation">!</div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-input">
+                <div class="form-icon-exclamation">!</div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input id="password_confirmation" name="password_confirmation" type="password" placeholder="Nhập lại mật khẩu" class="form-input">
+                <div class="form-icon-exclamation">!</div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="message">
+                Bằng cách nhấp vào Đăng ký, bạn đồng ý với <span class="note">Điều khoản</span>, <span class="note">Chính sách dữ liệu</span> và <span class="note">Chính sách cookie</span> của chúng tôi. Bạn có thể nhận được thông báo của chúng tôi qua
+                SMS và hủy nhận bất kỳ lúc nào.
+            </div>
+            <button class="form-submit">Đăng ký</button>
+        </form>
+    </div>
+
+    <script src="./validateForm.js"></script>
+    <script>
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorElement: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                Validator.isRequired('input[name="gender"]'),
+                Validator.isRequired('#email', 'Vui lòng nhập email của bạn'),
+                Validator.isEmail('#email', 'Email không chính xác'),
+                Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại'),
+                Validator.isPhoneNumber('#phone', 'Số điện thoại không chính xác'),
+                Validator.isRequired('#password', 'Vui lòng nhập password'),
+                Validator.minLength('#password', 8),
+                Validator.isRequired("#password_confirmation", 'Vui lòng xác thực password'),
+                Validator.isConfirmEqual('#password_confirmation', function() {
+                    return document.querySelector('#form-1 #password').value;
+                }, "Giá trị không trùng khớp")
+            ],
+            onSubmit: function(data) {
+                console.log(data);
+            }
+        });
+    </script>
+</body>
+
+</html>
